@@ -1,9 +1,8 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef } from "react";
 import kaboom from "kaboom";
 
 export const Game: React.FC = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
-    const [isMoving, setIsMoving] = useState(false);
 
     useEffect(() => {
         const k = kaboom({
