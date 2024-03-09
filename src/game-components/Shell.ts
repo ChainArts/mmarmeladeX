@@ -26,7 +26,7 @@ export function createShell(k: KaboomCtx) {
         k.anchor("center"),
         k.pos(x, y),
         k.scale(0.1),
-        k.lifespan(15),
+        k.lifespan(30),
     ]);
 
     return oilContainer;

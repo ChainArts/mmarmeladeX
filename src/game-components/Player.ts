@@ -20,7 +20,7 @@ export function Player(k: KaboomCtx) {
         k.body(),
         k.center(),
         {
-            health: 100,
+            life: 100,
             speed: 200,
             isInvincible: false,
         }

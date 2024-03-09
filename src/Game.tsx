@@ -7,7 +7,7 @@ import { createShell } from "./game-components/Shell";
 
 export const Game: React.FC = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
-    const healthTextRef = useRef<any>(null);
+    const lifeTextRef = useRef<any>(null);
 
 
 
@@ -29,49 +29,48 @@ export const Game: React.FC = () => {
         k.loadSprite("turtle2", "/assets/turtle2.png");
 
         const updateStatusText = () => {
-            healthTextRef.current.text = `Health: ${player.health}, Invincible: ${player.isInvincible}`;
+            lifeTextRef.current.text = `life: ${player.life}, Invincible: ${player.isInvincible}`;
         };
 
+        // Collisions ----------------------------------------------------------------
+
         player.onCollide("powerup", (p) => {
-            p.destroy();
-            player.health += 10;
-            if (player.health > 100) {
-                player.health = 100;
+
+            player.life += 10;
+            if (player.life > 100) {
+                player.life = 100;
             }
         
-
             if (p.is("shell")) {
                 player.isInvincible = true;
-                k.wait(5, () => {
+                setTimeout(() => {
                     player.isInvincible = false;
-                    updateStatusText();
-                })
+                }, 5000);
             }
 
-            updateStatusText();
-        
+            p.destroy();
         });
 
         player.onCollide("enemy", (e) => {
-            e.destroy();
+            
 
             if (player.isInvincible === false) {
                 if (e.is("oil")) {
                     k.shake(10);
-                    player.health -= 10;
+                    player.life -= 10;
                 }
-                else if (e.is("toxic")) {
+
+                if (e.is("toxic")) {
                     k.shake(20);
-                    player.health -= 20;
+                    player.life -= 20;
                 }
             }
-            
-            updateStatusText();
+            e.destroy();        
         });
         
 
 
-        // Create oil containers at random intervals
+        // Create oil containers at random intervals ----------------------------------
         k.loop(5, () => {
             k.wait(k.rand(2, 8), () => {
                 createOilContainer(k);
@@ -90,11 +89,15 @@ export const Game: React.FC = () => {
             });
         });
 
-        healthTextRef.current = k.add([
-            k.text(`Health: ${player.health}, Incincible: ${player.isInvincible}`),
+        lifeTextRef.current = k.add([
+            k.text(`life: ${player.life}, Incincible: ${player.isInvincible}`),
             k.pos(12, 12),
             k.fixed()
         ])
+
+        k.onUpdate(() => {
+            updateStatusText();
+        });
 
     }, []);
     return <canvas ref={canvasRef} />;
