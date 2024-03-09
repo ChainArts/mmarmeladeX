@@ -1,12 +1,8 @@
-import { Canvas } from "@react-three/fiber";
-import { CuboidCollider, Physics } from "@react-three/rapier";
-import Player from "./components/Player/Player";
+import { Game } from "./Game";
 
 function App() {
-  return (
-    <div>
-      <Player />
-    </div>
+    return (
+      <Game />
   );
 }
 
