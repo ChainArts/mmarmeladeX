@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import kaboom, { KaboomCtx } from "kaboom";
+import { Player } from "./game-components/Player";
 
 function createOilContainer(k: KaboomCtx) {
     // Define safezone dimensions
@@ -41,24 +42,7 @@ export const Game: React.FC = () => {
         k.loadSprite("turtle", "/assets/turtle.png");
         k.loadSprite("oil", "/assets/oil.png");
 
-        const speed = 200;
-        let x = 0;
-        let y = 0;
-        
-        k.onUpdate(() => {
-            player.move(x*speed, y*speed);
-        });
-        const player = k.add([
-            k.sprite("turtle"),
-            k.pos(k.width() / 2, k.height() / 2),
-            k.anchor("center"),
-            k.rotate(0),
-            k.scale(0.1),
-            k.area(),
-            k.body(),
-            k.center(),
-            k.health(100),
-        ]);
+        const player = Player(k);
 
         player.onCollide("oil", (o) => {
             o.destroy();
@@ -66,26 +50,6 @@ export const Game: React.FC = () => {
             k.shake(10);
         });
         k.setBackground(103, 211, 250, 1);
-        k.onKeyDown("d", () => {
-            x = 1;
-            y = 0;
-            player.rotateTo(90);
-        });
-        k.onKeyDown("a", () => {
-            x = -1;
-            y = 0
-            player.rotateTo(-90);
-        });
-        k.onKeyDown("w", () => {
-            x = 0;
-            y = -1;
-            player.rotateTo(0);
-        });
-        k.onKeyDown("s", () => {
-            x = 0;
-            y = 1;
-            player.rotateTo(180);
-        });
 
         // Create oil containers at random intervals
         k.loop(1, () => {
