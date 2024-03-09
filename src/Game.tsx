@@ -25,7 +25,7 @@ export const Game: React.FC = () => {
         k.loadSprite("toxic", "/assets/toxic.png");
         k.loadSprite("seaweed", "/assets/seaweed.png");
         k.loadSprite("shell", "/assets/shells.png");
-        k.loadSprite("wheel", "/assets/wheel.png");
+        k.loadSprite("tire", "/assets/wheel.png");
         k.loadSprite("jam", "/assets/jam.png");
         k.loadSprite("turtle2", "/assets/turtle2.png");
 
