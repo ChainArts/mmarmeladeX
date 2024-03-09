@@ -1,22 +1,9 @@
 import { KaboomCtx } from "kaboom";
+import { useSafeZone } from "./useSafeZone";
 
 export function createShell(k: KaboomCtx) {
     // Define safezone dimensions
-    const safezoneWidth = 100;
-    const safezoneHeight = 100;
-
-    // Generate a random position while considering the safezone
-    let x, y;
-    do {
-        x = k.rand(safezoneWidth, k.width() - safezoneWidth);
-        y = k.rand(safezoneHeight, k.height() - safezoneHeight);
-    } while (
-        // Check if the oil container's position is within the safezone
-        x >= k.width() / 2 - safezoneWidth / 2 &&
-        x <= k.width() / 2 + safezoneWidth / 2 &&
-        y >= k.height() / 2 - safezoneHeight / 2 &&
-        y <= k.height() / 2 + safezoneHeight / 2
-    );
+    const { x, y } = useSafeZone(k, 100, 100);
 
     const oilContainer = k.add([
         k.sprite("shell"),

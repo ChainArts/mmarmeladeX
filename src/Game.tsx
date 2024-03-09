@@ -29,7 +29,7 @@ export const Game: React.FC = () => {
         k.loadSprite("turtle2", "/assets/turtle2.png");
 
         const updateStatusText = () => {
-            lifeTextRef.current.text = `life: ${player.life}, Invincible: ${player.isInvincible}`;
+            lifeTextRef.current.text = `Life: ${player.life}, Invincible: ${player.isInvincible}`;
         };
 
         // Collisions ----------------------------------------------------------------
