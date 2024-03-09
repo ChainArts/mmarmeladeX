@@ -1,9 +1,9 @@
-import { KaboomCtx, Vec2 } from "kaboom";
+import { KaboomCtx } from "kaboom";
 import { useSafeZone } from "./useSafeZone";
 
-export function createTire(k: KaboomCtx, playerPos: Vec2) {
+export function createTire(k: KaboomCtx) {
 
-    const { x, y } = useSafeZone(k, 100, 100, playerPos as Vec2, 500);
+    const { x, y } = useSafeZone(k, 100, 100);
     const Tire = k.add([
         k.sprite("tire"),
         "tire",

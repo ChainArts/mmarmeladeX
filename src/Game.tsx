@@ -4,6 +4,7 @@ import { Player } from "./game-components/Player";
 import { createOilContainer } from "./game-components/OilContainer";
 import { createToxicContainer } from "./game-components/ToxicContainer";
 import { createShell } from "./game-components/Shell";
+import { createTire } from "./game-components/Tire";
 
 export const Game: React.FC = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -64,6 +65,10 @@ export const Game: React.FC = () => {
                     k.shake(20);
                     player.life -= 20;
                 }
+                if (e.is("tire")) {
+                    k.shake(5);
+                    player.life -= 5;
+                }
             }
             e.destroy();        
         });
@@ -76,10 +81,16 @@ export const Game: React.FC = () => {
                 createOilContainer(k);
             });
         });
-        
+
         k.loop(5, () => {
             k.wait(k.rand(2, 8), () => {
                 createToxicContainer(k);
+            });
+        });
+
+        k.loop(5, () => {
+            k.wait(k.rand(2, 8), () => {
+                createTire(k);
             });
         });
 
