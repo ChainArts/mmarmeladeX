@@ -76,7 +76,7 @@ export const Game: React.FC = () => {
                 createOilContainer(k);
             });
         });
-
+        
         k.loop(5, () => {
             k.wait(k.rand(2, 8), () => {
                 createToxicContainer(k);

@@ -5,7 +5,7 @@ export function createToxicContainer(k: KaboomCtx) {
     
     const { x, y } = useSafeZone(k, 100, 100);
     
-    const oilContainer = k.add([
+    const toxicContainer = k.add([
         k.sprite("toxic"),
         "toxic",
         "enemy",
@@ -16,5 +16,5 @@ export function createToxicContainer(k: KaboomCtx) {
         k.lifespan(30), // Destroy after 10 seconds
     ]);
 
-    return oilContainer;
+    return toxicContainer;
 }
