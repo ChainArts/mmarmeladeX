@@ -1,6 +1,8 @@
 import { KaboomCtx } from "kaboom";
 
 export function Player(k: KaboomCtx) {
+    k.loadSprite("turtle", "/assets/turtle.png");
+    
     const speed = 200;
     let x = 0;
     let y = 0;
