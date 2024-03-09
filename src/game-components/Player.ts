@@ -19,7 +19,11 @@ export function Player(k: KaboomCtx) {
         k.area(),
         k.body(),
         k.center(),
-        k.health(100),
+        {
+            health: 100,
+            speed: 200,
+            isInvincible: false,
+        }
     ]);
 
     k.onKeyDown("d", () => {
