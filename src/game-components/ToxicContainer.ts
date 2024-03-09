@@ -9,10 +9,10 @@ export function createToxicContainer(k: KaboomCtx) {
         k.sprite("toxic"),
         "toxic",
         "enemy",
-        k.area(),
+        k.area({ scale: 0.5}),
         k.anchor("center"),
         k.pos(x, y), // Random position
-        k.scale(0.1),
+        k.scale(0.2),
         k.lifespan(30), // Destroy after 10 seconds
     ]);
 

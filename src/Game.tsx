@@ -5,12 +5,13 @@ import { createOilContainer } from "./game-components/OilContainer";
 import { createToxicContainer } from "./game-components/ToxicContainer";
 import { createShell } from "./game-components/Shell";
 import { createTire } from "./game-components/Tire";
+import { createSeaweed } from "./game-components/Seaweed";
+import { createJam } from "./game-components/Jam";
+
 
 export const Game: React.FC = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const lifeTextRef = useRef<any>(null);
-
-
 
     useEffect(() => {
         const k = kaboom({
@@ -48,6 +49,13 @@ export const Game: React.FC = () => {
                 setTimeout(() => {
                     player.isInvincible = false;
                 }, 5000);
+            }
+
+            if (p.is("jam")) {
+                player.speed = 500;
+                setTimeout(() => {
+                    player.speed = 200;
+                }, 1000);
             }
 
             p.destroy();
@@ -98,9 +106,21 @@ export const Game: React.FC = () => {
             });
         });
 
-         k.loop(5, () => {
+        k.loop(5, () => {
             k.wait(k.rand(2, 8), () => {
                 createShell(k);
+            });
+        });
+
+        k.loop(5, () => {
+            k.wait(k.rand(2, 8), () => {
+                createSeaweed(k);
+            });
+        });
+
+        k.loop(5, () => {
+            k.wait(k.rand(2, 8), () => {
+                createJam(k);
             });
         });
 

@@ -8,7 +8,7 @@ export function createTire(k: KaboomCtx) {
         k.sprite("tire"),
         "tire",
         "enemy",
-        k.scale(0.1),
+        k.scale(0.2),
         k.anchor("center"),
         k.pos(x, y), // Random position
         k.area(),

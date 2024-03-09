@@ -11,8 +11,8 @@ export function Player(k: KaboomCtx) {
         k.pos(k.width() / 2, k.height() / 2),
         k.anchor("center"),
         k.rotate(0),
-        k.scale(0.1),
-        k.area(),
+        k.scale(0.2),
+        k.area({ scale: 0.75}),
         k.body(),
         k.center(),
         {

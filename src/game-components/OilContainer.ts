@@ -8,10 +8,10 @@ export function createOilContainer(k: KaboomCtx) {
         k.sprite("oil"),
         "oil",
         "enemy",
-        k.area(),
+        k.area({ scale: 0.5}),
         k.anchor("center"),
         k.pos(x, y), // Random position
-        k.scale(0.1),
+        k.scale(0.15),
         k.lifespan(10), // Destroy after 10 seconds
     ]);
 

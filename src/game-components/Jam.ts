@@ -1,20 +1,20 @@
 import { KaboomCtx } from "kaboom";
 import { useSafeZone } from "./useSafeZone";
 
-export function createShell(k: KaboomCtx) {
+export function createJam(k: KaboomCtx) {
     // Define safezone dimensions
     const { x, y } = useSafeZone(k, 100, 100);
 
-    const shell = k.add([
-        k.sprite("shell"),
-        "shell",
+    const jam = k.add([
+        k.sprite("jam"),
+        "jam",
         "powerup",
         k.area(),
         k.anchor("center"),
         k.pos(x, y),
         k.scale(0.2),
-        k.lifespan(10),
+        k.lifespan(50),
     ]);
 
-    return shell;
+    return jam;
 }
