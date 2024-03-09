@@ -1,13 +1,11 @@
 import { KaboomCtx } from "kaboom";
 
 export function Player(k: KaboomCtx) {
-    const speed = 200;
+    k.loadSprite("turtle", "/assets/turtle.png");
+    
     let x = 0;
     let y = 0;
 
-    k.onUpdate(() => {
-        player.move(x * speed, y * speed);
-    });
     const player = k.add([
         k.sprite("turtle"),
         k.pos(k.width() / 2, k.height() / 2),
@@ -17,8 +15,16 @@ export function Player(k: KaboomCtx) {
         k.area(),
         k.body(),
         k.center(),
-        k.health(100),
+        {
+            life: 100,
+            speed: 200,
+            isInvincible: false,
+        }
     ]);
+
+    k.onUpdate(() => {
+        player.move(x * player.speed, y * player.speed);
+    });
 
     k.onKeyDown("d", () => {
         x = 1;
