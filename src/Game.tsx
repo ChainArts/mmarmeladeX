@@ -27,6 +27,7 @@ export const Game: React.FC = () => {
         k.loadSprite("shell", "/assets/shells.png");
         k.loadSprite("tire", "/assets/wheel.png");
         k.loadSprite("jam", "/assets/jam.png");
+        k.loadSprite("boat", "/assets/boat.png");
         k.loadSprite("turtle2", "/assets/turtle2.png");
 
         const updateStatusText = () => {
@@ -57,15 +58,18 @@ export const Game: React.FC = () => {
 
             if (player.isInvincible === false) {
                 if (e.is("oil")) {
+                    k.addKaboom(player.pos);
                     k.shake(10);
                     player.life -= 10;
                 }
 
                 if (e.is("toxic")) {
+                    k.addKaboom(player.pos);
                     k.shake(20);
                     player.life -= 20;
                 }
                 if (e.is("tire")) {
+                    k.addKaboom(player.pos);
                     k.shake(5);
                     player.life -= 5;
                 }
