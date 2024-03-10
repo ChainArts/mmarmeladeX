@@ -32,7 +32,8 @@ export const Game: React.FC = () => {
     k.loadSprite("boat", "/assets/boat.png");
     k.loadSprite("border", "/assets/border.png");
     k.loadSprite("border-bottom", "/assets/border-bottom.png");
-    k.loadSprite
+    k.loadSprite("icon1", "/assets/icon.png");
+    k.loadSprite("icon2", "/assets/icon2.png");
     k.loadSprite("turtle2", "/assets/turtle2.png");
     k.loadSprite("bubble", "/assets/bubble.png");
     k.loadSound("eat", "/assets/eat.mp3");
@@ -52,8 +53,10 @@ export const Game: React.FC = () => {
 
           const Stage = createStage(k);
 
-          k.add([k.rect(400, 80), k.pos(10, 10), k.color(20, 20, 20), "bg", k.z(999)]);
-            k.add([k.rect(400, 80), k.pos(k.width()-10, 10), k.color(20, 20, 20), "bg", k.z(999), k.anchor("topright")]);
+          k.add([k.rect(240, 80), k.pos(60, 10), k.color(20, 20, 20), "bg", k.z(999)]);
+          k.add([k.sprite("icon1"), k.pos(5, 4), k.scale(0.07), k.z(1000)]);
+          k.add([k.rect(240, 80), k.pos(k.width() - 60, 10), k.color(20, 20, 20), "bg", k.z(999), k.anchor("topright")]);
+            k.add([k.sprite("icon2"), k.pos(k.width()-5, 4), k.scale(0.07), k.z(1000), k.anchor("topright")]);
 
           // Collisions ----------------------------------------------------------------
 
