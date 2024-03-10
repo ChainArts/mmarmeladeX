@@ -41,6 +41,7 @@ export const Game: React.FC = () => {
     k.loadSound("background-music", "/assets/background.mp3");
     k.play("background-music", {
       loop: true,
+      volume: 0.2,
     });
 
     k.scene("game", () => {
