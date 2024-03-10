@@ -39,65 +39,12 @@ export const Game: React.FC = () => {
 
         const player = Player(k);
         const updateStatusText = () => {
-            lifeTextRef.current.text = `Life: ${player.life}, Invincible: ${player.isInvincible}`;
+            lifeTextRef.current.text = `Life: ${player.life}, Score: ${player.score}`;
         };
 
         const Stage = createStage(k);
 
         // Collisions ----------------------------------------------------------------
-
-        player.onCollide("powerup", (p) => {
-            
-            k.play("eat")
-
-            if (p.is("seaweed")) {
-                player.life += 10;
-                if (player.life > 100) {
-                    player.life = 100;
-                }
-            }
-
-            if (p.is("shell")) {
-                player.isInvincible = true;
-                player.children[0].opacity = 1;
-                setTimeout(() => {
-                    player.isInvincible = false;
-                    player.children[0].opacity = 0;
-                }, 5000);
-            }
-
-            if (p.is("jam")) {
-                player.speed = 500;
-                setTimeout(() => {
-                    player.speed = 300;
-                }, 1000);
-            }
-
-            p.destroy();
-        });
-
-        player.onCollide("enemy", (e) => {
-
-
-            if (player.isInvincible === false) {
-                if (e.is("oil")) {
-                    k.addKaboom(player.pos);
-                    k.shake(10);
-                    player.life -= 10;
-                }
-
-                if (e.is("toxic")) {
-                    k.addKaboom(player.pos);
-                    k.shake(20);
-                    player.life -= 20;
-                }
-                if (e.is("tire")) {
-                    k.shake(5);  
-                }
-            }
-            e.destroy();
-        });
-
 
 
         // Create oil containers at random intervals ----------------------------------
@@ -107,8 +54,8 @@ export const Game: React.FC = () => {
             });
         });
 
-        k.loop(5, () => {
-            k.wait(k.rand(2, 8), () => {
+        k.loop(10, () => {
+            k.wait(k.rand(5, 10), () => {
                 createToxicContainer(k);
             });
         });
@@ -119,26 +66,26 @@ export const Game: React.FC = () => {
             });
         });
 
-        k.loop(5, () => {
-            k.wait(k.rand(2, 8), () => {
+        k.loop(10, () => {
+            k.wait(k.rand(10, 20), () => {
                 createShell(k);
             });
         });
 
-        k.loop(5, () => {
-            k.wait(k.rand(2, 8), () => {
+        k.loop(8, () => {
+            k.wait(k.rand(0, 5), () => {
                 createSeaweed(k);
             });
         });
 
-        k.loop(5, () => {
-            k.wait(k.rand(2, 8), () => {
+        k.loop(15, () => {
+            k.wait(k.rand(10, 20), () => {
                 createJam(k);
             });
         });
 
         lifeTextRef.current = k.add([
-            k.text(`life: ${player.life}, Incincible: ${player.isInvincible}`),
+            k.text(`life: ${player.life}, score: ${player.score}`),
             k.pos(12, 12),
             k.fixed()
         ]);

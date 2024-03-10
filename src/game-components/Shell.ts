@@ -13,7 +13,7 @@ export function createShell(k: KaboomCtx) {
         k.anchor("center"),
         k.pos(x, y),
         k.scale(0.2),
-        k.lifespan(10),
+        k.lifespan(20),
     ]);
 
     return shell;

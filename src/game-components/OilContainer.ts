@@ -12,7 +12,7 @@ export function createOilContainer(k: KaboomCtx) {
         k.anchor("center"),
         k.pos(x, y), // Random position
         k.scale(0.15),
-        k.lifespan(10), // Destroy after 10 seconds
+        k.lifespan(30), // Destroy after 10 seconds
     ]);
 
     return oilContainer;
