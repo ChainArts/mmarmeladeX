@@ -11,7 +11,8 @@ import { createStage } from "./game-components/Stage";
 
 export const Game: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const lifeTextRef = useRef<any>(null);
+    const lifeTextRef1 = useRef<any>(null);
+    const lifeTextRef2 = useRef<any>(null);
 
   useEffect(() => {
     const k = kaboom({
@@ -31,6 +32,7 @@ export const Game: React.FC = () => {
     k.loadSprite("boat", "/assets/boat.png");
     k.loadSprite("border", "/assets/border.png");
     k.loadSprite("border-bottom", "/assets/border-bottom.png");
+    k.loadSprite
     k.loadSprite("turtle2", "/assets/turtle2.png");
     k.loadSprite("bubble", "/assets/bubble.png");
     k.loadSound("eat", "/assets/eat.mp3");
@@ -40,12 +42,18 @@ export const Game: React.FC = () => {
           const player2 = Player(k, "turtle2", "up", "left", "down", "right");
 
           const updateStatusText = () => {
-              lifeTextRef.current.text = `Life: ${Math.ceil(
+              lifeTextRef1.current.text = `Life: ${Math.ceil(
                   player1.life
-              )}, Score: ${player1.score}`;
+              )}\nScore: ${player1.score}`;
+                lifeTextRef2.current.text = `Life: ${Math.ceil(
+                    player2.life
+                )}\nScore: ${player2.score}`;
           };
 
           const Stage = createStage(k);
+
+          k.add([k.rect(400, 80), k.pos(10, 10), k.color(20, 20, 20), "bg", k.z(999)]);
+            k.add([k.rect(400, 80), k.pos(k.width()-10, 10), k.color(20, 20, 20), "bg", k.z(999), k.anchor("topright")]);
 
           // Collisions ----------------------------------------------------------------
 
@@ -86,13 +94,25 @@ export const Game: React.FC = () => {
               });
           });
 
-          lifeTextRef.current = k.add([
+          lifeTextRef1.current = k.add([
               k.text(
-                  `life: ${Math.round(player1.life)}, score: ${player1.score}`
+                  `Life: ${Math.round(player1.life)}\nScore: ${player1.score}`
               ),
-              k.pos(12, 12),
+              k.pos(100, 12),
               k.fixed(),
+              k.z(1000),
           ]);
+          lifeTextRef2.current = k.add([
+                k.text(
+                    `Life: ${Math.round(player2.life)}\nScore: ${player2.score}`
+                ),
+                k.pos(k.width()-100, 12),
+              k.fixed(),
+              k.z(1000),
+                k.anchor("topright")
+            ]);
+
+            
 
           let multiplier = 0.01;
 
@@ -109,11 +129,15 @@ export const Game: React.FC = () => {
                     k.go("game-over", player1.score, player2.score);
                 }
           });
+          
       });
+
+
       k.scene("game-over", (score1: Number, score2 : Number) => {
           k.add([
               k.text("Game Over"),
-              k.pos(k.width() / 2, k.height() / 2 - 80),
+              k.pos(k.width() / 2, k.height() / 2 - 120),
+              k.scale(2),
               k.anchor("center"),
           ]);
           k.add([
@@ -136,6 +160,11 @@ export const Game: React.FC = () => {
               k.pos(k.width() / 2, k.height() / 2 + 80),
               k.anchor("center"),
           ]);
+          k.add([
+                k.text("Click to Main Menu"),
+                k.pos(k.width() / 2, k.height() / 2 + 120),
+                k.anchor("center"),
+            ]);
           k.onKeyPress("space", () => {
               k.go("game");
           });
