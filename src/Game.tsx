@@ -9,7 +9,6 @@ import { createSeaweed } from "./game-components/Seaweed";
 import { createJam } from "./game-components/Jam";
 import { createStage } from "./game-components/Stage";
 
-
 export const Game: React.FC = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const lifeTextRef = useRef<any>(null);
@@ -23,7 +22,6 @@ export const Game: React.FC = () => {
         k.setBackground(66, 190, 240, 1);
         k.volume(0.5);
 
-        
         k.loadSprite("oil", "/assets/oil.png");
         k.loadSprite("toxic", "/assets/toxic.png");
         k.loadSprite("seaweed", "/assets/seaweed.png");
@@ -41,7 +39,7 @@ export const Game: React.FC = () => {
         const player2 = Player(k, "turtle2", "up", "left", "down", "right");
 
         const updateStatusText = () => {
-            lifeTextRef.current.text = `Life: ${Math.floor(
+            lifeTextRef.current.text = `Life: ${Math.ceil(
                 player1.life
             )}, Score: ${player1.score}`;
         };
@@ -49,7 +47,6 @@ export const Game: React.FC = () => {
         const Stage = createStage(k);
 
         // Collisions ----------------------------------------------------------------
-
 
         // Create oil containers at random intervals ----------------------------------
         k.loop(5, () => {
@@ -106,7 +103,6 @@ export const Game: React.FC = () => {
             if (multiplier < 1) {
                 multiplier += 0.0005;
             }
-
         });
     }, []);
     return <canvas ref={canvasRef} />;
