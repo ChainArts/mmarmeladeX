@@ -33,6 +33,14 @@ export function Player(k: KaboomCtx, sprite: string, up: Key, left: Key, down: K
         k.scale(0.2), // Match the player's scale or set as needed
     ]);
 
+    const toxic_bubble = k.add([
+      k.sprite("toxic-bubble"),
+      k.pos(player.pos.x, player.pos.y),
+      k.anchor("center"),
+      k.opacity(0), // Invisible initially
+      k.scale(0.2), // Match the player's scale or set as needed
+    ]);
+
     // Controls ----------------------------------------------------------------
 
 
@@ -93,8 +101,8 @@ export function Player(k: KaboomCtx, sprite: string, up: Key, left: Key, down: K
 
     player.onCollide("enemy", (e) => {
         if (player.isInvincible === false) {
+            k.addKaboom(player.pos);
             if (e.is("oil")) {
-                k.addKaboom(player.pos);
                 k.shake(10);
                 player.life -= 20;
                 player.canMove = false;
@@ -114,20 +122,22 @@ export function Player(k: KaboomCtx, sprite: string, up: Key, left: Key, down: K
             }
 
             if (e.is("toxic")) {
-                k.addKaboom(player.pos);
                 k.shake(20);
                 player.life -= 50;
+
+                player.isInverted = true;
+                player.rotateBy(180);
+                toxic_bubble.opacity = 1;
+
+                setTimeout(() => {
+                    player.isInverted = false;
+                    player.rotateBy(180);
+                    toxic_bubble.opacity = 0;
+                }, 5000);
                 
             }
 
             if (e.is("tire")) {
-                k.addKaboom(player.pos);
-                player.isInverted = true;
-                player.rotateBy(180);
-                setTimeout(() => {
-                    player.isInverted = false;
-                    player.rotateBy(180);
-                }, 5000);
                 k.shake(5);
                 player.life -= 10;
             }
@@ -159,6 +169,7 @@ export function Player(k: KaboomCtx, sprite: string, up: Key, left: Key, down: K
         }
 
         bubble.pos = player.pos.clone();
+        toxic_bubble.pos = player.pos.clone();
     });
 
     return player;

@@ -36,6 +36,7 @@ export const Game: React.FC = () => {
     k.loadSprite("icon2", "/assets/icon2.png");
     k.loadSprite("turtle2", "/assets/turtle2.png");
     k.loadSprite("bubble", "/assets/bubble.png");
+    k.loadSprite("toxic-bubble", "/assets/toxic_bubble.png");
     k.loadSound("eat", "/assets/eat.mp3");
 
       k.scene("game", () => {
