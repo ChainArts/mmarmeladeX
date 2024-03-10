@@ -1,5 +1,4 @@
-import { KaboomCtx } from "kaboom";
-import { Key } from "react";
+import { KaboomCtx, Key } from "kaboom";
 export function Player(k: KaboomCtx, sprite: string, up: Key, left: Key, down: Key, right: Key) {
     k.loadSprite("turtle", "/assets/turtle.png");
 
@@ -18,7 +17,7 @@ export function Player(k: KaboomCtx, sprite: string, up: Key, left: Key, down: K
         k.center(),
         {
             life: 100,
-            speed: 5000,
+            speed: 300,
             isInvincible: false,
             isInverted: false,
             canMove: true,
@@ -80,10 +79,10 @@ export function Player(k: KaboomCtx, sprite: string, up: Key, left: Key, down: K
         }
 
         if (p.is("jam")) {
-            player.speed = 10000;
+            player.speed = 800;
             player.score += 40;
             setTimeout(() => {
-                player.speed = 5000;
+                player.speed = 300;
             }, 1000);
         }
 
@@ -91,10 +90,6 @@ export function Player(k: KaboomCtx, sprite: string, up: Key, left: Key, down: K
     });
 
     // enemies ------------------------------------------------------------------
-
-    player.onCollide("boat", (b) => {
-        player.life = 0;
-    });
 
     player.onCollide("enemy", (e) => {
         if (player.isInvincible === false) {
@@ -122,16 +117,17 @@ export function Player(k: KaboomCtx, sprite: string, up: Key, left: Key, down: K
                 k.addKaboom(player.pos);
                 k.shake(20);
                 player.life -= 50;
+                
+            }
+
+            if (e.is("tire")) {
+                k.addKaboom(player.pos);
                 player.isInverted = true;
                 player.rotateBy(180);
                 setTimeout(() => {
                     player.isInverted = false;
                     player.rotateBy(180);
                 }, 5000);
-            }
-
-            if (e.is("tire")) {
-                k.addKaboom(player.pos);
                 k.shake(5);
                 player.life -= 10;
             }
@@ -148,18 +144,18 @@ export function Player(k: KaboomCtx, sprite: string, up: Key, left: Key, down: K
         if (player.canMove) {
             if (player.isInverted) {
                 player.move(
-                    x * -player.speed * k.dt(),
-                    y * -player.speed * k.dt()
+                    x * -player.speed,
+                    y * -player.speed
                 );
             } else {
                 player.move(
-                    x * player.speed * k.dt(),
-                    y * player.speed * k.dt()
+                    x * player.speed,
+                    y * player.speed
                 );
             }
         } else {
             // player spins in place
-            player.rotateBy(20);
+            player.rotateBy(360*k.dt());
         }
 
         bubble.pos = player.pos.clone();

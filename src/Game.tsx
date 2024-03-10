@@ -41,7 +41,7 @@ export const Game: React.FC = () => {
         const player2 = Player(k, "turtle2", "up", "left", "down", "right");
 
         const updateStatusText = () => {
-            lifeTextRef.current.text = `Life: ${Math.round(
+            lifeTextRef.current.text = `Life: ${Math.floor(
                 player1.life
             )}, Score: ${player1.score}`;
         };
@@ -101,8 +101,8 @@ export const Game: React.FC = () => {
         k.onUpdate(() => {
             updateStatusText();
 
-            player1.life -= k.dt() * 5 * multiplier;
-            player2.life -= k.dt() * 5 * multiplier;
+            player1.life -= k.dt() * 2 * multiplier;
+            player2.life -= k.dt() * 2 * multiplier;
             if (multiplier < 1) {
                 multiplier += 0.0005;
             }
