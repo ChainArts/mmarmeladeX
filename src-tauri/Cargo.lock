@@ -3047,8 +3047,8 @@ dependencies = [
 ]
 
 [[package]]
-name = "turtle"
-version = "0.0.0"
+name = "turtlejs"
+version = "0.0.1"
 dependencies = [
  "serde",
  "serde_json",
