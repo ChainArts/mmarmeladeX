@@ -6,9 +6,8 @@ export function createStage(k: KaboomCtx) {
         k.pos(-20, -20),
         k.scale(1.05),
         k.anchor("topleft"),
-        k.area({ offset: { x: 0, y: -50 } }),
+        k.area({ offset: k.vec2(0, -50) }),
         k.body({ isStatic: true }),
-    
     ]);
 
     k.add([
@@ -16,7 +15,7 @@ export function createStage(k: KaboomCtx) {
         k.pos(630, -20),
         k.scale(1.05),
         k.anchor("topleft"),
-        k.area({ offset: { x: 0, y: -50 } }),
+        k.area({ offset: k.vec2(0, -50) }),
         k.body({ isStatic: true }),
     ]);
 
@@ -25,7 +24,7 @@ export function createStage(k: KaboomCtx) {
         k.pos(k.width() + 20, -20),
         k.scale(1.05),
         k.anchor("topright"),
-        k.area({ offset: { x: 0, y: -50 } }),
+        k.area({ offset: k.vec2(0, -50) }),
         k.body({ isStatic: true }),
     ]);
 
@@ -34,9 +33,8 @@ export function createStage(k: KaboomCtx) {
         k.pos(-20, k.height() + 20),
         k.scale(1.05),
         k.anchor("botleft"),
-        k.area({ offset: { x: 0, y: 50 } }),
+        k.area({ offset: k.vec2(0, 50) }),
         k.body({ isStatic: true }),
-    
     ]);
 
     k.add([
@@ -44,7 +42,7 @@ export function createStage(k: KaboomCtx) {
         k.pos(630, k.height() + 20),
         k.scale(1.05),
         k.anchor("botleft"),
-        k.area({ offset: { x: 0, y: 50 } }),
+        k.area({ offset: k.vec2(0, 50) }),
         k.body({ isStatic: true }),
     ]);
 
@@ -53,7 +51,7 @@ export function createStage(k: KaboomCtx) {
         k.pos(k.width() + 20, k.height() + 20),
         k.scale(1.05),
         k.anchor("botright"),
-        k.area({ offset: { x: 0, y: 50 } }),
+        k.area({ offset: k.vec2(0, 50) }),
         k.body({ isStatic: true }),
     ]);
 
@@ -90,5 +88,4 @@ export function createStage(k: KaboomCtx) {
         k.area(),
         k.body({ isStatic: true }),
     ]);
-
 }
