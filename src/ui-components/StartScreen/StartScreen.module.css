@@ -13,6 +13,12 @@
     "Helvetica Neue", sans-serif;
 }
 
+.button-container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
 .button {
   padding: 20px 30px;
   font-size: 20px;
@@ -25,4 +31,9 @@
 
 .button:hover {
   background-color: #c0c0c0;
+}
+
+.icon {
+  height: 128px;
+  width: 128px;
 }
