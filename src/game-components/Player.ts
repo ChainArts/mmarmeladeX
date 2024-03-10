@@ -150,6 +150,12 @@ export function Player(k: KaboomCtx, sprite: string, up: Key, left: Key, down: K
         e.destroy();
     });
 
+    player.onCollide("border", (b) => {
+        if (player.isInvincible === false) {
+            player.life -= 30;
+        }
+    })
+
     k.onUpdate(() => {
         if (player.canMove) {
             if (player.isInverted) {
