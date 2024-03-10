@@ -70,6 +70,7 @@ export function Player(k: KaboomCtx, sprite: string, up: Key, left: Key, down: K
     // Powerups ------------------------------------------------------------------
 
     player.onCollide("powerup", (p) => {
+        k.play("eat");
         player.life += 10;
         player.score += 10;
         if (player.life > 100) {
@@ -103,6 +104,7 @@ export function Player(k: KaboomCtx, sprite: string, up: Key, left: Key, down: K
         if (player.isInvincible === false) {
             k.addKaboom(player.pos);
             if (e.is("oil")) {
+                k.play("explosion")
                 k.shake(10);
                 player.life -= 20;
                 player.canMove = false;
@@ -122,6 +124,7 @@ export function Player(k: KaboomCtx, sprite: string, up: Key, left: Key, down: K
             }
 
             if (e.is("toxic")) {
+                k.play("explosion")
                 k.shake(20);
                 player.life -= 50;
 
@@ -138,6 +141,7 @@ export function Player(k: KaboomCtx, sprite: string, up: Key, left: Key, down: K
             }
 
             if (e.is("tire")) {
+                k.play("explosion")
                 k.shake(5);
                 player.life -= 10;
             }

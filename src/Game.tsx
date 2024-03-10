@@ -38,6 +38,8 @@ export const Game: React.FC = () => {
     k.loadSprite("bubble", "/assets/bubble.png");
     k.loadSprite("toxic-bubble", "/assets/toxic_bubble.png");
     k.loadSound("eat", "/assets/eat.mp3");
+    k.loadSound("explosion", "/assets/explosion.mp3");
+    k.loadSound("ohno", "/assets/ohno.mp3");
     k.loadSound("background-music", "/assets/background.mp3");
     k.play("background-music", {
       loop: true,
@@ -147,19 +149,19 @@ export const Game: React.FC = () => {
           multiplier += 0.0005;
         }
 
-              if (player1.life <= 0 || player2.life <= 0) {
-                  if (player1.life <= 0) {
-                      player2.score += 500;
-                  } else {
-                      player1.score += 500;
-                  }
-                    k.go("game-over", player1.score, player2.score);
-                }
-          });
-          
+        if (player1.life <= 0 || player2.life <= 0) {
+          if (player1.life <= 0) {
+            player2.score += 500;
+          } else {
+            player1.score += 500;
+          }
+          k.go("game-over", player1.score, player2.score);
+        }
       });
+    });
 
     k.scene("game-over", (score1: Number, score2: Number) => {
+      k.play("ohno");
       k.add([
         k.text("Game Over"),
         k.pos(k.width() / 2, k.height() / 2 - 120),
