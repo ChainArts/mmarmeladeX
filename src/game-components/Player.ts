@@ -154,7 +154,7 @@ export function Player(k: KaboomCtx, sprite: string, up: Key, left: Key, down: K
         e.destroy();
     });
 
-    player.onCollide("border", (b) => {
+    player.onCollide("border", () => {
         if (player.isInvincible === false) {
             player.life -= 30;
         }

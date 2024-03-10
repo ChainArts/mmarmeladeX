@@ -59,7 +59,7 @@ export const Game: React.FC = () => {
         }`;
       };
 
-      const Stage = createStage(k);
+      createStage(k);
 
       k.add([
         k.rect(240, 80),

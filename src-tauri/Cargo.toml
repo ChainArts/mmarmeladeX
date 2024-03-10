@@ -1,8 +1,8 @@
 [package]
 name = "turtlejs"
-version = "0.0.1"
+version = "1.0.0"
 description = "A super fun game"
-authors = ["you"]
+authors = ["ChainArts, citysa, tobytaken"]
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
