@@ -1,12 +1,13 @@
 import { KaboomCtx } from "kaboom";
-export function Player(k: KaboomCtx) {
+import { Key } from "react";
+export function Player(k: KaboomCtx, sprite: string, up: Key, left: Key, down: Key, right: Key) {
     k.loadSprite("turtle", "/assets/turtle.png");
 
     let x = 0;
     let y = 0;
 
     const player = k.add([
-        k.sprite("turtle"),
+        k.sprite(sprite),
         "player",
         k.pos(k.width() / 2, k.height() / 2),
         k.anchor("center"),
@@ -35,25 +36,26 @@ export function Player(k: KaboomCtx) {
 
     // Controls ----------------------------------------------------------------
 
-    k.onKeyDown("d", () => {
-        x = 1;
-        y = 0;
-        player.rotateTo(player.isInverted ? -90 : 90);
-    });
-    k.onKeyDown("a", () => {
-        x = -1;
-        y = 0;
-        player.rotateTo(player.isInverted ? 90 : -90);
-    });
-    k.onKeyDown("w", () => {
+
+    k.onKeyDown(up, () => {
         x = 0;
         y = -1;
         player.rotateTo(player.isInverted ? 180 : 0);
     });
-    k.onKeyDown("s", () => {
+    k.onKeyDown(left, () => {
+        x = -1;
+        y = 0;
+        player.rotateTo(player.isInverted ? 90 : -90);
+    });
+    k.onKeyDown(down, () => {
         x = 0;
         y = 1;
         player.rotateTo(player.isInverted ? 0 : 180);
+    });
+    k.onKeyDown(right, () => {
+        x = 1;
+        y = 0;
+        player.rotateTo(player.isInverted ? -90 : 90);
     });
 
     // Collisions ----------------------------------------------------------------

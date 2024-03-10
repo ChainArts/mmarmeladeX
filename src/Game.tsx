@@ -37,9 +37,11 @@ export const Game: React.FC = () => {
         k.loadSprite("bubble", "/assets/bubble.png");
         k.loadSound("eat", "/assets/eat.mp3");
 
-        const player = Player(k);
+        const player1 = Player(k, "turtle", "w", "a", "s", "d");
+        const player2 = Player(k, "turtle2", "up", "left", "down", "right");
+
         const updateStatusText = () => {
-            lifeTextRef.current.text = `Life: ${player.life}, Score: ${player.score}`;
+            lifeTextRef.current.text = `Life: ${player1.life}, Score: ${player1.score}`;
         };
 
         const Stage = createStage(k);
@@ -85,7 +87,7 @@ export const Game: React.FC = () => {
         });
 
         lifeTextRef.current = k.add([
-            k.text(`life: ${player.life}, score: ${player.score}`),
+            k.text(`life: ${player1.life}, score: ${player1.score}`),
             k.pos(12, 12),
             k.fixed()
         ]);
