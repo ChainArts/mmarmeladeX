@@ -147,11 +147,17 @@ export const Game: React.FC = () => {
           multiplier += 0.0005;
         }
 
-        if (player1.life <= 0 || player2.life <= 0) {
-          k.go("game-over", player1.score, player2.score);
-        }
+              if (player1.life <= 0 || player2.life <= 0) {
+                  if (player1.life <= 0) {
+                      player2.score += 500;
+                  } else {
+                      player1.score += 500;
+                  }
+                    k.go("game-over", player1.score, player2.score);
+                }
+          });
+          
       });
-    });
 
     k.scene("game-over", (score1: Number, score2: Number) => {
       k.add([
