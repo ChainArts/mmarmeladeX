@@ -17,7 +17,7 @@ export function Player(k: KaboomCtx) {
         k.center(),
         {
             life: 100,
-            speed: 200,
+            speed: 300,
             isInvincible: false,
         }
     ]);

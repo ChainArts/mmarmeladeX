@@ -19,7 +19,8 @@ export const Game: React.FC = () => {
             canvas: canvasRef.current!,
         });
 
-        k.setBackground(103, 211, 250, 1);
+        k.setBackground(66, 190, 240, 1);
+        k.volume(0.5);
 
         const player = Player(k);
         k.loadSprite("oil", "/assets/oil.png");
@@ -29,21 +30,82 @@ export const Game: React.FC = () => {
         k.loadSprite("tire", "/assets/wheel.png");
         k.loadSprite("jam", "/assets/jam.png");
         k.loadSprite("boat", "/assets/boat.png");
+        k.loadSprite("border", "/assets/border.png");
+        k.loadSprite("border-bottom", "/assets/border-bottom.png");
         k.loadSprite("turtle2", "/assets/turtle2.png");
+        k.loadSound("eat", "/assets/eat.mp3");
 
         const updateStatusText = () => {
             lifeTextRef.current.text = `Life: ${player.life}, Invincible: ${player.isInvincible}`;
         };
 
+        k.add([
+            k.sprite("border"),
+            k.pos(-20, -20),
+            k.scale(1.05),
+            k.anchor("topleft"),
+            k.area({ offset: { x: 0, y: -50 } }),
+            k.body({ isStatic: true }),
+            
+        ]);
+
+        k.add([
+            k.sprite("border"),
+            k.pos(630, -20),
+            k.scale(1.05),
+            k.anchor("topleft"),
+            k.area({ offset: { x: 0 , y: -50 } }),
+            k.body({ isStatic: true }),
+        ]);
+
+        k.add([
+            k.sprite("border"),
+            k.pos(k.width()+20, -20),
+            k.scale(1.05),
+            k.anchor("topright"),
+            k.area({ offset: { x: 0 , y: -50 } }),
+            k.body({ isStatic: true }),
+        ]);
+
+        k.add([
+            k.sprite("border-bottom"),
+            k.pos(-20, k.height()+20),
+            k.scale(1.05),
+            k.anchor("botleft"),
+            k.area({ offset: { x: 0, y: 50 } }),
+            k.body({ isStatic: true }),
+            
+        ]);
+
+        k.add([
+            k.sprite("border-bottom"),
+            k.pos(630, k.height()+20),
+            k.scale(1.05),
+            k.anchor("botleft"),
+            k.area({ offset: { x: 0 , y: 50 } }),
+            k.body({ isStatic: true }),
+        ]);
+
+        k.add([
+            k.sprite("border-bottom"),
+            k.pos(k.width()+20, k.height()+20),
+            k.scale(1.05),
+            k.anchor("botright"),
+            k.area({ offset: { x: 0 , y: 50 } }),
+            k.body({ isStatic: true }),
+        ]);
+
         // Collisions ----------------------------------------------------------------
 
         player.onCollide("powerup", (p) => {
-
+            
+            k.play("eat")
+            
             player.life += 10;
             if (player.life > 100) {
                 player.life = 100;
             }
-        
+
             if (p.is("shell")) {
                 player.isInvincible = true;
                 setTimeout(() => {
@@ -54,7 +116,7 @@ export const Game: React.FC = () => {
             if (p.is("jam")) {
                 player.speed = 500;
                 setTimeout(() => {
-                    player.speed = 200;
+                    player.speed = 300;
                 }, 1000);
             }
 
@@ -62,7 +124,7 @@ export const Game: React.FC = () => {
         });
 
         player.onCollide("enemy", (e) => {
-            
+
 
             if (player.isInvincible === false) {
                 if (e.is("oil")) {
@@ -77,14 +139,12 @@ export const Game: React.FC = () => {
                     player.life -= 20;
                 }
                 if (e.is("tire")) {
-                    k.addKaboom(player.pos);
-                    k.shake(5);
-                    player.life -= 5;
+                    k.shake(5);    
                 }
             }
-            e.destroy();        
+            e.destroy();
         });
-        
+
 
 
         // Create oil containers at random intervals ----------------------------------
@@ -128,12 +188,11 @@ export const Game: React.FC = () => {
             k.text(`life: ${player.life}, Incincible: ${player.isInvincible}`),
             k.pos(12, 12),
             k.fixed()
-        ])
+        ]);
 
         k.onUpdate(() => {
             updateStatusText();
         });
-
     }, []);
     return <canvas ref={canvasRef} />;
 };
