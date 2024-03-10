@@ -1,5 +1,4 @@
 import { KaboomCtx } from "kaboom";
-
 export function Player(k: KaboomCtx) {
     k.loadSprite("turtle", "/assets/turtle.png");
     
@@ -12,7 +11,7 @@ export function Player(k: KaboomCtx) {
         k.anchor("center"),
         k.rotate(0),
         k.scale(0.2),
-        k.area({ scale: 0.75}),
+        k.area({ scale: 0.75 }),
         k.body(),
         k.center(),
         {
@@ -21,6 +20,8 @@ export function Player(k: KaboomCtx) {
             isInvincible: false,
         }
     ]);
+
+    player.add([k.sprite("bubble"), k.anchor("center"), k.opacity(0)]);
 
     k.onUpdate(() => {
         player.move(x * player.speed, y * player.speed);

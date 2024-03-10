@@ -7,6 +7,7 @@ import { createShell } from "./game-components/Shell";
 import { createTire } from "./game-components/Tire";
 import { createSeaweed } from "./game-components/Seaweed";
 import { createJam } from "./game-components/Jam";
+import { createStage } from "./game-components/Stage";
 
 
 export const Game: React.FC = () => {
@@ -22,7 +23,7 @@ export const Game: React.FC = () => {
         k.setBackground(66, 190, 240, 1);
         k.volume(0.5);
 
-        const player = Player(k);
+        
         k.loadSprite("oil", "/assets/oil.png");
         k.loadSprite("toxic", "/assets/toxic.png");
         k.loadSprite("seaweed", "/assets/seaweed.png");
@@ -33,83 +34,35 @@ export const Game: React.FC = () => {
         k.loadSprite("border", "/assets/border.png");
         k.loadSprite("border-bottom", "/assets/border-bottom.png");
         k.loadSprite("turtle2", "/assets/turtle2.png");
+        k.loadSprite("bubble", "/assets/bubble.png");
         k.loadSound("eat", "/assets/eat.mp3");
 
+        const player = Player(k);
         const updateStatusText = () => {
             lifeTextRef.current.text = `Life: ${player.life}, Invincible: ${player.isInvincible}`;
         };
 
-        k.add([
-            k.sprite("border"),
-            k.pos(-20, -20),
-            k.scale(1.05),
-            k.anchor("topleft"),
-            k.area({ offset: { x: 0, y: -50 } }),
-            k.body({ isStatic: true }),
-            
-        ]);
-
-        k.add([
-            k.sprite("border"),
-            k.pos(630, -20),
-            k.scale(1.05),
-            k.anchor("topleft"),
-            k.area({ offset: { x: 0 , y: -50 } }),
-            k.body({ isStatic: true }),
-        ]);
-
-        k.add([
-            k.sprite("border"),
-            k.pos(k.width()+20, -20),
-            k.scale(1.05),
-            k.anchor("topright"),
-            k.area({ offset: { x: 0 , y: -50 } }),
-            k.body({ isStatic: true }),
-        ]);
-
-        k.add([
-            k.sprite("border-bottom"),
-            k.pos(-20, k.height()+20),
-            k.scale(1.05),
-            k.anchor("botleft"),
-            k.area({ offset: { x: 0, y: 50 } }),
-            k.body({ isStatic: true }),
-            
-        ]);
-
-        k.add([
-            k.sprite("border-bottom"),
-            k.pos(630, k.height()+20),
-            k.scale(1.05),
-            k.anchor("botleft"),
-            k.area({ offset: { x: 0 , y: 50 } }),
-            k.body({ isStatic: true }),
-        ]);
-
-        k.add([
-            k.sprite("border-bottom"),
-            k.pos(k.width()+20, k.height()+20),
-            k.scale(1.05),
-            k.anchor("botright"),
-            k.area({ offset: { x: 0 , y: 50 } }),
-            k.body({ isStatic: true }),
-        ]);
+        const Stage = createStage(k);
 
         // Collisions ----------------------------------------------------------------
 
         player.onCollide("powerup", (p) => {
             
             k.play("eat")
-            
-            player.life += 10;
-            if (player.life > 100) {
-                player.life = 100;
+
+            if (p.is("seaweed")) {
+                player.life += 10;
+                if (player.life > 100) {
+                    player.life = 100;
+                }
             }
 
             if (p.is("shell")) {
                 player.isInvincible = true;
+                player.children[0].opacity = 1;
                 setTimeout(() => {
                     player.isInvincible = false;
+                    player.children[0].opacity = 0;
                 }, 5000);
             }
 
@@ -139,7 +92,7 @@ export const Game: React.FC = () => {
                     player.life -= 20;
                 }
                 if (e.is("tire")) {
-                    k.shake(5);    
+                    k.shake(5);  
                 }
             }
             e.destroy();
