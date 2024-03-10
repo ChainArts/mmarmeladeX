@@ -41,7 +41,9 @@ export const Game: React.FC = () => {
         const player2 = Player(k, "turtle2", "up", "left", "down", "right");
 
         const updateStatusText = () => {
-            lifeTextRef.current.text = `Life: ${player1.life}, Score: ${player1.score}`;
+            lifeTextRef.current.text = `Life: ${Math.round(
+                player1.life
+            )}, Score: ${player1.score}`;
         };
 
         const Stage = createStage(k);
@@ -87,13 +89,24 @@ export const Game: React.FC = () => {
         });
 
         lifeTextRef.current = k.add([
-            k.text(`life: ${player1.life}, score: ${player1.score}`),
+            k.text(
+                `life: ${Math.round(player1.life)}, score: ${player1.score}`
+            ),
             k.pos(12, 12),
-            k.fixed()
+            k.fixed(),
         ]);
+
+        let multiplier = 0.01;
 
         k.onUpdate(() => {
             updateStatusText();
+
+            player1.life -= k.dt() * 5 * multiplier;
+            player2.life -= k.dt() * 5 * multiplier;
+            if (multiplier < 1) {
+                multiplier += 0.0005;
+            }
+
         });
     }, []);
     return <canvas ref={canvasRef} />;

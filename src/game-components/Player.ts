@@ -92,6 +92,10 @@ export function Player(k: KaboomCtx, sprite: string, up: Key, left: Key, down: K
 
     // enemies ------------------------------------------------------------------
 
+    player.onCollide("boat", (b) => {
+        player.life = 0;
+    });
+
     player.onCollide("enemy", (e) => {
         if (player.isInvincible === false) {
             if (e.is("oil")) {
@@ -155,11 +159,10 @@ export function Player(k: KaboomCtx, sprite: string, up: Key, left: Key, down: K
             }
         } else {
             // player spins in place
-            player.rotateBy(10);
+            player.rotateBy(20);
         }
 
         bubble.pos = player.pos.clone();
-        player.life -= 1 * k.dt();
     });
 
     return player;

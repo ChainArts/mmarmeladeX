@@ -1,13 +1,13 @@
 import { KaboomCtx } from "kaboom";
 import { useSafeZone } from "./useSafeZone";
 
-export function createBoad(k: KaboomCtx) {
+export function createBoat(k: KaboomCtx) {
     // Define safezone dimensions
     const { x, y } = useSafeZone(k, 100, 100);
 
-    const boad = k.add([
-        k.sprite("boad"),
-        "boad",
+    const boat = k.add([
+        k.sprite("boat"),
+        "boat",
         "enemy",
         k.area(),
         k.anchor("center"),
@@ -16,5 +16,5 @@ export function createBoad(k: KaboomCtx) {
         k.lifespan(50),
     ]);
 
-    return boad;
+    return boat;
 }
